@@ -7,24 +7,21 @@
         <div class="card">
             <h5 class="card-header">Cadastro de usuários</h5>
             <div class="card-body table-responsive">
-
-                <table class="table table-striped">
+                <h6 class="card-subtitle mb-3 text-muted">Clique sobre o cadastro para editar</h6>
+                <table class="table table-hover ">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nome</th>
                         <th scope="col">E-mail</th>
-                        <th scope="col">Ações</th>
                     </tr>
                     </thead>
                     <tbody>
                     @forelse($users as $user)
-                        <tr>
-
+                        <tr class='clickable-row' data-href="{{ route('admin.users.edit', $user->id) }}" style="cursor: pointer">
                             <th scope="row">{{ $user->id }}</th>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td></td>
                         </tr>
                     @empty
                         <tr>
