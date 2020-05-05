@@ -17,6 +17,17 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Auth::routes();
+Route::prefix('admin')->group(function () {
+    Auth::routes();
+
+    Route::group([
+        'namespace' => 'Admin\\',
+        'as' => 'admin.',
+        'middleware' => 'auth'
+    ], function () {
+        Route::resource('users' , 'UsersController');
+    });
+});
+
 
 Route::get('/home', 'HomeController@index')->name('home');
