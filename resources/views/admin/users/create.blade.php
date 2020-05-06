@@ -21,8 +21,16 @@
                         <label for="email">E-mail</label>
                         <input type="email" class="form-control" id="email" name="email">
                     </div>
-                        <button type="submit" class="btn btn-primary mb-2">Inserir</button>
-                        <a href="{{ route('admin.users.index') }}" class="btn btn-secondary mb-2">Voltar</a>
+                        <button type="submit" class="btn btn-primary mb-2 btn-icon-split">
+                            <span class="icon"><i data-feather="user-check" width="1rem" height="1rem"></i></span>
+                            <span class="text">Inserir</span>
+                        </button>
+
+                        <a href="{{ route('admin.users.index') }}" class="btn btn-secondary mb-2 btn-icon-split">
+                            <span class="icon"><i data-feather="arrow-left" width="1rem" height="1rem"></i></span>
+                            <span class="text">Voltar</span>
+                        </a>
+
                 </form>
             </div>
         </div>

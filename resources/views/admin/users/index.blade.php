@@ -7,6 +7,7 @@
         <div class="card">
             <h5 class="card-header">Cadastro de usuários</h5>
             <div class="card-body table-responsive">
+
                 <h6 class="card-subtitle mb-3 text-muted">Clique sobre o cadastro para editar</h6>
                 <table class="table table-hover ">
                     <thead>
@@ -32,7 +33,11 @@
 
                 </table>
                 {{ $users->links() }}
-                <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Novo usuário</a>
+                <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-icon-split">
+                    <span class="icon"><i data-feather="user-plus" width="1rem" height="1rem"></i></span>
+                    <span class="text">Novo usuário</span>
+                </a>
+
             </div>
         </div>
     </div>

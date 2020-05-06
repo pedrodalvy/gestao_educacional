@@ -22,11 +22,19 @@
                     </div>
 
                     <div class="d-flex bd-highlight mb-3">
-                        <button type="submit" class="btn btn-primary ">Salvar</button>
-                        <a href="{{ route('admin.users.index') }}" class="btn btn-secondary ml-2 mr-2">Voltar</a>
+                        <button type="submit" class="btn btn-primary btn-icon-split">
+                            <span class="icon"><i data-feather="user-check" width="1rem" height="1rem"></i></span>
+                            <span class="text">Salvar</span>
+                        </button>
 
-                        <button type="button" class="btn btn-danger ml-auto" data-toggle="modal" data-target="#deleteModal">
-                            Remover
+                        <a href="{{ route('admin.users.index') }}" class="btn btn-secondary btn-icon-split ml-2 mr-2">
+                            <span class="icon"><i data-feather="arrow-left" width="1rem" height="1rem"></i></span>
+                            <span class="text">Voltar</span>
+                        </a>
+
+                        <button type="button" class="btn btn-danger ml-auto btn-icon-split" data-toggle="modal" data-target="#deleteModal">
+                            <span class="icon"><i data-feather="trash-2" width="1rem" height="1rem"></i></span>
+                            <span class="text">Remover</span>
                         </button>
                     </div>
 
@@ -55,8 +63,14 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger" form="formDelete">Excluir</button>
+                    <button type="button" class="btn btn-secondary btn-icon-split" data-dismiss="modal">
+                        <span class="icon"><i data-feather="x" width="1rem" height="1rem"></i></span>
+                        <span class="text">Cancelar</span>
+                    </button>
+                    <button type="submit" class="btn btn-danger btn-icon-split" form="formDelete">
+                        <span class="icon"><i data-feather="trash-2" width="1rem" height="1rem"></i></span>
+                        <span class="text">Excluir</span>
+                    </button>
                 </div>
             </div>
         </div>
