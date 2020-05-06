@@ -53,6 +53,7 @@ class UsersController extends Controller
             'password' => \Hash::make('123456')
         ]);
 
+        toastr('success', 'Cadastro realizado com sucesso.');
         return redirect()->route('admin.users.index');
     }
 
@@ -90,6 +91,7 @@ class UsersController extends Controller
     {
         $user->fill($request->all())->save();
 
+        toastr('success', 'Cadastro alterado com sucesso.');
         return redirect()->route('admin.users.index');
     }
 
@@ -103,6 +105,7 @@ class UsersController extends Controller
     {
         $user->delete();
 
+        toastr('success', 'Cadastro removido com sucesso.');
         return redirect()->route('admin.users.index');
     }
 }
