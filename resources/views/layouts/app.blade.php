@@ -31,5 +31,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/site.js') }}"></script>
+
+    @include('partials._toastr')
 </body>
 </html>
