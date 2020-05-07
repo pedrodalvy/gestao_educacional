@@ -7,14 +7,16 @@ use Illuminate\Notifications\Notification;
 
 class UserCreated extends Notification
 {
+    private $token;
+
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param String $token
      */
-    public function __construct()
+    public function __construct(String $token)
     {
-        //
+        $this->token = $token;
     }
 
     /**
@@ -43,6 +45,7 @@ class UserCreated extends Notification
             ->subject("Sua conta no $appName foi criada")
             ->greeting("Olá {$notifiable->name}, seja bem vindo ao $appName")
             ->line("Sua matrícula é: {$notifiable->enrolment}")
+            ->action('Clique aqui apra definir uma nova senha', route('password.reset', $this->token))
             ->line('Obrigado por usar nosso sistema!');
     }
 }

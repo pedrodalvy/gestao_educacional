@@ -59,7 +59,8 @@ class User extends Authenticatable
 
         if (isset($request->send_mail))
         {
-            $user->notify(new UserCreated());
+            $token = \Password::broker()->createToken($user);
+            $user->notify(new UserCreated($token));
         }
         return $user;
     }
