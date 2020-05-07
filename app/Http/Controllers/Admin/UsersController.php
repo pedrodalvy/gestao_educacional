@@ -46,10 +46,25 @@ class UsersController extends Controller
      */
     public function store(StoreUsersRequest $request)
     {
-        User::createFully($request);
+        $newUser = User::createFully($request);
+
+        session()->flash('user_created', [
+            'id' => $newUser['user']->id,
+            'password' => $newUser['password']
+        ]);
 
         toastr('success', 'Cadastro realizado com sucesso.');
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.users.show_datails');
+    }
+
+    public function showDetails()
+    {
+        $newUser = session('user_created');
+        $user = User::findOrFail($newUser['id']);
+        $user->password = $newUser['password'];
+
+        return view('admin.users.show_details')
+            ->with('user', $user);
     }
 
     /**
