@@ -46,12 +46,7 @@ class UsersController extends Controller
      */
     public function store(StoreUsersRequest $request)
     {
-        /** @var StoreUsersRequest $request */
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => \Hash::make('123456')
-        ]);
+        User::createFully($request);
 
         toastr('success', 'Cadastro realizado com sucesso.');
         return redirect()->route('admin.users.index');
