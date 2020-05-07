@@ -77,4 +77,9 @@ class User extends Authenticatable
 
         return $user->enrolment;
     }
+
+    public function userable()
+    {
+        return $this->morphTo();
+    }
 }
