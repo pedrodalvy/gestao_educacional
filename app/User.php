@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\UserCreated;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -56,6 +57,10 @@ class User extends Authenticatable
         self::assignEnrolment($user, self::ROLE_ADMIN);
         $user->save();
 
+        if (isset($request->send_mail))
+        {
+            $user->notify(new UserCreated());
+        }
         return $user;
     }
 

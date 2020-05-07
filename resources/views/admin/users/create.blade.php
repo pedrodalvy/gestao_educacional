@@ -21,6 +21,12 @@
                         <label for="email">E-mail</label>
                         <input type="email" class="form-control" id="email" name="email">
                     </div>
+
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="send_mail" value="true" name="send_mail">
+                        <label class="custom-control-label" for="send_mail">Enviar e-mail de boas-vindas</label>
+                    </div>
+
                         <button type="submit" class="btn btn-primary mb-2 btn-icon-split">
                             <span class="icon"><i data-feather="user-check" width="1rem" height="1rem"></i></span>
                             <span class="text">Inserir</span>
