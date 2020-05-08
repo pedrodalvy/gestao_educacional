@@ -23,7 +23,7 @@ Route::prefix('admin')->group(function () {
     Route::group([
         'namespace' => 'Admin\\',
         'as' => 'admin.',
-        'middleware' => 'auth'
+        'middleware' => ['auth', 'can:admin']
     ], function () {
 
         Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
