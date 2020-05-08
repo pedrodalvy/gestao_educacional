@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Models\Admin;
+use App\Models\Student;
+use App\Models\Teacher;
 use App\Notifications\UserCreated;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -55,6 +58,8 @@ class User extends Authenticatable
         ]);
 
         self::assignEnrolment($user, self::ROLE_ADMIN);
+        self::assingRole($user, $request->type);
+
         $user->save();
 
         if (isset($request->send_mail))
@@ -78,6 +83,19 @@ class User extends Authenticatable
         return $user->enrolment;
     }
 
+    public static function assingRole(User $user, $type)
+    {
+        $types = [
+            self::ROLE_ADMIN => Admin::class,
+            self::ROLE_TEACHER => Teacher::class,
+            self::ROLE_STUDENT => Student::class,
+        ];
+
+        $model = $types[$type];
+        $model = $model::create([]);
+
+        $user->userable()->associate($model);
+    }
     public function userable()
     {
         return $this->morphTo();

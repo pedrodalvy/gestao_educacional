@@ -22,6 +22,16 @@
                         <input type="email" class="form-control" id="email" name="email">
                     </div>
 
+                    <div class="form-group">
+                        <label for="type">Tipo de usuário</label>
+                        <select class="form-control" id="type" name="type">
+                            <option>Selecione um tipo</option>
+                            <option value="1">Administrador</option>
+                            <option value="2">Professor</option>
+                            <option value="3">Aluno</option>
+                        </select>
+                    </div>
+
                     <div class="custom-control custom-checkbox mb-3">
                         <input type="checkbox" class="custom-control-input" id="send_mail" value="true" name="send_mail">
                         <label class="custom-control-label" for="send_mail">Enviar e-mail de boas-vindas</label>
