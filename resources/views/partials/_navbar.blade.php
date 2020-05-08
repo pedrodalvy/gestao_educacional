@@ -13,9 +13,11 @@
             <ul class="navbar-nav mr-auto">
                 @guest
                 @else
-                    <li class="nav-item {{ (request()->is('admin/users*')) ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('admin.users.index') }}">Usuários</a>
-                    </li>
+                    @if (\Gate::allows('admin'))
+                        <li class="nav-item {{ (request()->is('admin/users*')) ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('admin.users.index') }}">Usuários</a>
+                        </li>
+                    @endif
                 @endguest
             </ul>
 
