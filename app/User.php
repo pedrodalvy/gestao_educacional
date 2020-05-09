@@ -5,8 +5,10 @@ namespace App;
 use App\Models\Admin;
 use App\Models\Student;
 use App\Models\Teacher;
+use App\Models\UserProfile;
 use App\Notifications\UserCreated;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -46,6 +48,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     *  Create new user method
+     *
+     * @param $request
+     * @return array
+     */
     public static function createFully($request)
     {
         $password = Str::random(6);
@@ -58,18 +66,24 @@ class User extends Authenticatable
         ]);
 
         self::assignEnrolment($user, self::ROLE_ADMIN);
-        self::assingRole($user, $request->type);
+        self::assignRole($user, $request->type);
 
         $user->save();
 
-        if (isset($request->send_mail))
-        {
+        if (isset($request->send_mail)) {
             $token = \Password::broker()->createToken($user);
             $user->notify(new UserCreated($token));
         }
         return compact('user', 'password');
     }
 
+    /**
+     * Assign enrolment for users
+     *
+     * @param User $user
+     * @param $type
+     * @return int|mixed|string
+     */
     public static function assignEnrolment(User $user, $type)
     {
         $types = [
@@ -83,7 +97,13 @@ class User extends Authenticatable
         return $user->enrolment;
     }
 
-    public static function assingRole(User $user, $type)
+    /**
+     * Assign role for users
+     *
+     * @param User $user
+     * @param $type
+     */
+    public static function assignRole(User $user, $type)
     {
         $types = [
             self::ROLE_ADMIN => Admin::class,
@@ -96,8 +116,17 @@ class User extends Authenticatable
 
         $user->userable()->associate($model);
     }
+
+    /**
+     * @return MorphTo
+     */
     public function userable()
     {
         return $this->morphTo();
+    }
+
+    public function profile()
+    {
+        $this->hasOne(UserProfile::class);
     }
 }
