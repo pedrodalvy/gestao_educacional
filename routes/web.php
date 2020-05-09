@@ -20,6 +20,11 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->group(function () {
     Auth::routes();
 
+    Route::group(['prefix' => 'users', 'as' => 'admin.users.'], function () {
+        Route::get('settings', 'Admin\UserSettingsController@edit')->name('settings.edit');
+        Route::put('settings', 'Admin\UserSettingsController@update')->name('settings.update');
+    });
+
     Route::group([
         'namespace' => 'Admin\\',
         'as' => 'admin.',
