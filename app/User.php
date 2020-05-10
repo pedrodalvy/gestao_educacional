@@ -127,6 +127,6 @@ class User extends Authenticatable
 
     public function profile()
     {
-        $this->hasOne(UserProfile::class);
+        return $this->hasOne(UserProfile::class)->withDefault();
     }
 }
