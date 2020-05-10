@@ -23,7 +23,7 @@ class CreateUserProfilesTable extends Migration
             $table->string('city');
             $table->string('state', 2);
 
-            $table->unsignedInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();
