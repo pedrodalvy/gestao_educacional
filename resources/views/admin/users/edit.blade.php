@@ -4,41 +4,44 @@
     <div class="container">
         @include('partials._alert')
         <div class="card">
-            <h5 class="card-header">Editar cadastro</h5>
+            <h5 class="card-header">Editar cadastro do usuário <strong>{{ $user->name }}</strong></h5>
             <div class="card-body table-responsive">
 
-                <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
-                    @method('PUT')
-                    @csrf
+                @component('components._users_edit_tabs',['userId' => $user->id])
+                    <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+                        @method('PUT')
+                        @csrf
 
-                    <div class="form-group">
-                        <label for="name">Nome</label>
-                        <input type="name" class="form-control" id="name" name="name" value="{{ $user->name }}">
-                    </div>
+                        <div class="form-group">
+                            <label for="name">Nome</label>
+                            <input type="name" class="form-control" id="name" name="name" value="{{ $user->name }}">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="email">E-mail</label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
-                    </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
+                        </div>
 
-                    <div class="d-flex bd-highlight mb-3">
-                        <button type="submit" class="btn btn-primary btn-icon-split">
-                            <span class="icon"><i data-feather="user-check" width="1rem" height="1rem"></i></span>
-                            <span class="text">Salvar</span>
-                        </button>
+                        <div class="d-flex bd-highlight mb-3">
+                            <button type="submit" class="btn btn-primary btn-icon-split">
+                                <span class="icon"><i data-feather="user-check" width="1rem" height="1rem"></i></span>
+                                <span class="text">Salvar</span>
+                            </button>
 
-                        <a href="{{ route('admin.users.index') }}" class="btn btn-secondary btn-icon-split ml-2 mr-2">
-                            <span class="icon"><i data-feather="arrow-left" width="1rem" height="1rem"></i></span>
-                            <span class="text">Voltar</span>
-                        </a>
+                            <a href="{{ route('admin.users.index') }}" class="btn btn-secondary btn-icon-split ml-2 mr-2">
+                                <span class="icon"><i data-feather="arrow-left" width="1rem" height="1rem"></i></span>
+                                <span class="text">Voltar</span>
+                            </a>
 
-                        <button type="button" class="btn btn-danger ml-auto btn-icon-split" data-toggle="modal" data-target="#deleteModal">
-                            <span class="icon"><i data-feather="trash-2" width="1rem" height="1rem"></i></span>
-                            <span class="text">Remover</span>
-                        </button>
-                    </div>
+                            <button type="button" class="btn btn-danger ml-auto btn-icon-split" data-toggle="modal" data-target="#deleteModal">
+                                <span class="icon"><i data-feather="trash-2" width="1rem" height="1rem"></i></span>
+                                <span class="text">Remover</span>
+                            </button>
+                        </div>
 
-                </form>
+                    </form>
+                @endcomponent
+
             </div>
         </div>
     </div>
