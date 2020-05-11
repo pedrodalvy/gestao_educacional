@@ -6,16 +6,6 @@ use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
-*/
 
 $factory->define(User::class, function (Faker $faker) {
     return [
@@ -25,5 +15,19 @@ $factory->define(User::class, function (Faker $faker) {
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
         'enrolment' => Str::random(6),
+    ];
+});
+
+$factory->define(\App\Models\UserProfile::class, function (Faker $faker) {
+    return [
+        'address' => $faker->address,
+        'cep' => function () use ($faker) {
+            return preg_replace('/[^0-9]/', '', $faker->postcode());
+        },
+        'number' => rand(1, 100),
+        'complement' => rand(1, 10) % 2 == 0 ? null : $faker->sentence,
+        'city' => $faker->city,
+        'neighborhood' => $faker->city,
+        'state' => collect(\App\Models\State::$states)->random(),
     ];
 });
