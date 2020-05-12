@@ -41,7 +41,7 @@ $factory->define(\App\Models\ClassInformation::class, function (Faker $faker) {
         'date_start' => $faker->date(),
         'date_end' => $faker->date(),
         'cycle' => rand(1, 8),
-        'subdivision' => $faker->randomLetter,
+        'subdivision' => strtoupper($faker->randomLetter),
         'semester' => rand(1, 2),
         'year' => rand(2020, 2030),
     ];
