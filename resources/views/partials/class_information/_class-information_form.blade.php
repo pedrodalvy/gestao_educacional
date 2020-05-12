@@ -1,11 +1,13 @@
 <div class="form-group">
     <label for="date_start">Data Início</label>
-    <input type="date" class="form-control" id="date_start" name="date_start" value="{{ old('date_start', $classInformation->date_start) }}">
+    <input type="date" class="form-control" id="date_start" name="date_start"
+           value="{{ old('date_start', $classInformation->date_start?$classInformation->date_start->format('Y-m-d'):'') }}">
 </div>
 
 <div class="form-group">
     <label for="date_end">Data Fim</label>
-    <input type="date" class="form-control" id="date_end" name="date_end" value="{{ old('date_end', $classInformation->date_end) }}">
+    <input type="date" class="form-control" id="date_end" name="date_end"
+           value="{{ old('date_end', $classInformation->date_end?$classInformation->date_end->format('Y-m-d'):'') }}">
 </div>
 
 <div class="form-group">
