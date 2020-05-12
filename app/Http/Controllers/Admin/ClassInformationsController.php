@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ClassInformationRequest;
 use App\Models\ClassInformation;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -103,11 +104,18 @@ class ClassInformationsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param ClassInformation $classInformation
-     * @return Response
+     * @param ClassInformation $classinformation
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function destroy(ClassInformation $classInformation)
+    public function destroy(ClassInformation $classinformation)
     {
-        //
+        if ($classinformation->delete()) {
+            toastr('success', 'Cadastro removido com sucesso');
+            return redirect()->to(route('admin.classinformation.index'));
+        }
+
+        toastr('error', 'Não foi possível removido o cadastro');
+        return back();
     }
 }
