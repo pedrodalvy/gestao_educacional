@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UpdateSubjectsRequest;
 use App\Models\Subject;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -97,10 +98,19 @@ class SubjectsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Response
+     * @return RedirectResponse
+     * @throws Exception
      */
     public function destroy($id)
     {
-        //
+        $subject = Subject::findOrFail($id);
+
+        if($subject->delete()) {
+            toastr('success', 'Cadastro removido com sucesso.');
+            return redirect()->to(route('admin.subjects.index'));
+        }
+
+        toastr('error', 'Não foi possível remover o cadastro');
+        return back();
     }
 }
