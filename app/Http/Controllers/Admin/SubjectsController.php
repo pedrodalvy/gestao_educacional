@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UpdateSubjectsRequest;
 use App\Models\Subject;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
@@ -61,23 +63,34 @@ class SubjectsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return Response
+     * @return Application|Factory|Response|View
      */
     public function edit($id)
     {
-        //
+        $subject = Subject::findOrFail($id);
+
+        return view('admin.subjects.edit')
+            ->with('subject', $subject);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UpdateSubjectsRequest $request
      * @param int $id
-     * @return Response
+     * @return RedirectResponse|Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateSubjectsRequest $request, $id)
     {
-        //
+        $subject = Subject::findOrFail($id);
+
+        if ($subject->fill($request->all())->save()) {
+            toastr('success', 'Cadastro alterado com sucesso');
+            return redirect()->to(route('admin.subjects.index'));
+        }
+
+        toastr('error', 'Não foi possível atualizar o cadastro');
+        return back();
     }
 
     /**
