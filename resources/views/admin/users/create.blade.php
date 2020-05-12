@@ -6,7 +6,7 @@
 
 
         <div class="card">
-            <h5 class="card-header">Novo de usuário</h5>
+            <h5 class="card-header">Novo usuário</h5>
             <div class="card-body table-responsive">
 
                 <form action="{{ route('admin.users.store') }}" method="POST">
