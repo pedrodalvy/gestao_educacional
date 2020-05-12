@@ -31,3 +31,7 @@ $factory->define(\App\Models\UserProfile::class, function (Faker $faker) {
         'state' => collect(\App\Models\State::$states)->random(),
     ];
 });
+
+$factory->define(\App\Models\Subject::class, function (Faker $faker) {
+    return ['name' => $faker->word];
+});
