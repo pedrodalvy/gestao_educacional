@@ -24,6 +24,10 @@
                             <a class="nav-link" href="{{ route('admin.subjects.index') }}">Disciplinas</a>
                         </li>
 
+                        <li class="nav-item {{ (request()->is('admin/classinformation*')) ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('admin.classinformation.index') }}">Turmas</a>
+                        </li>
+
                     @endif
 
                 @endguest
