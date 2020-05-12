@@ -13,11 +13,19 @@
             <ul class="navbar-nav mr-auto">
                 @guest
                 @else
+
                     @if (\Gate::allows('admin'))
+
                         <li class="nav-item {{ (request()->is('admin/users*')) ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('admin.users.index') }}">Usuários</a>
                         </li>
+
+                        <li class="nav-item {{ (request()->is('admin/subjects*')) ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('admin.subjects.index') }}">Disciplinas</a>
+                        </li>
+
                     @endif
+
                 @endguest
             </ul>
 
