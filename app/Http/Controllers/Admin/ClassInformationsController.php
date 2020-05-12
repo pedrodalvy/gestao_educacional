@@ -63,7 +63,7 @@ class ClassInformationsController extends Controller
      * Display the specified resource.
      *
      * @param ClassInformation $classInformation
-     * @return Response
+     * @return void
      */
     public function show(ClassInformation $classInformation)
     {
@@ -73,24 +73,31 @@ class ClassInformationsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param ClassInformation $classInformation
-     * @return Response
+     * @param ClassInformation $classinformation
+     * @return Application|Factory|Response|View
      */
-    public function edit(ClassInformation $classInformation)
+    public function edit(ClassInformation $classinformation)
     {
-        //
+        return view('admin.class_information.edit')
+            ->with('classInformation', $classinformation);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param ClassInformation $classInformation
-     * @return Response
+     * @param ClassInformationRequest $request
+     * @param ClassInformation $classinformation
+     * @return RedirectResponse
      */
-    public function update(Request $request, ClassInformation $classInformation)
+    public function update(ClassInformationRequest $request, ClassInformation $classinformation)
     {
-        //
+        if ($classinformation->fill($request->all())->save()) {
+            toastr('success', 'Cadastro atualizado com sucesso');
+            return redirect()->to(route('admin.classinformation.index'));
+        }
+
+        toastr('error', 'Não foi possível atualizado o cadastro');
+        return back();
     }
 
     /**
