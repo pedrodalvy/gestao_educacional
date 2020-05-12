@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ClassInformation;
 use Illuminate\Http\Request;
 
 class ClassInformationsController extends Controller
@@ -41,10 +42,10 @@ class ClassInformationsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\ClassInformation  $classInformation
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ClassInformation $classInformation)
     {
         //
     }
@@ -52,10 +53,10 @@ class ClassInformationsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\ClassInformation  $classInformation
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ClassInformation $classInformation)
     {
         //
     }
@@ -64,10 +65,10 @@ class ClassInformationsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\ClassInformation  $classInformation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ClassInformation $classInformation)
     {
         //
     }
@@ -75,10 +76,10 @@ class ClassInformationsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\ClassInformation  $classInformation
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ClassInformation $classInformation)
     {
         //
     }
