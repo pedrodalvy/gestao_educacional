@@ -24,7 +24,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td class="text-center">Nenhum usuário cadastrado</td>
+                            <td class="text-center">Nenhuma disciplina cadastrada</td>
                         </tr>
                     @endforelse
                     </tbody>
