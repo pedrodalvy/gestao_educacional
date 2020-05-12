@@ -14,4 +14,9 @@ class ClassInformation extends Model
         'semester',
         'year'
     ];
+
+    protected $dates = [
+        'date_start',
+        'date_end',
+    ];
 }
