@@ -35,3 +35,14 @@ $factory->define(\App\Models\UserProfile::class, function (Faker $faker) {
 $factory->define(\App\Models\Subject::class, function (Faker $faker) {
     return ['name' => $faker->word];
 });
+
+$factory->define(\App\Models\ClassInformation::class, function (Faker $faker) {
+    return [
+        'date_start' => $faker->date(),
+        'date_end' => $faker->date(),
+        'cycle' => rand(1, 8),
+        'subdivision' => $faker->randomLetter,
+        'semester' => rand(1, 2),
+        'year' => rand(2020, 2030),
+    ];
+});
