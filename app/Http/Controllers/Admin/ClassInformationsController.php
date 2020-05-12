@@ -28,11 +28,14 @@ class ClassInformationsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return Application|Factory|Response|View
      */
     public function create()
     {
-        //
+        $classInformation = new ClassInformation;
+
+        return view('admin.class_information.create')
+            ->with('classInformation', $classInformation);
     }
 
     /**
