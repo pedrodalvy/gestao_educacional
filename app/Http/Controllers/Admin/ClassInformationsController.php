@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ClassInformationRequest;
 use App\Models\ClassInformation;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
@@ -41,12 +43,20 @@ class ClassInformationsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return Response
+     * @param ClassInformationRequest $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(ClassInformationRequest $request)
     {
-        //
+        $classInformation = ClassInformation::create($request->all());
+
+        if ($classInformation) {
+            toastr('success', 'Cadastro realizado com sucesso');
+            return redirect()->to(route('admin.classinformation.index'));
+        }
+
+        toastr('error', 'Não foi possível adicionar o cadastro');
+        return back();
     }
 
     /**
