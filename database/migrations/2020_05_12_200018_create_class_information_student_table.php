@@ -14,13 +14,13 @@ class CreateClassInformationStudentTable extends Migration
     public function up()
     {
         Schema::create('class_information_student', function (Blueprint $table) {
-            $table->unsignedInteger('student_id');
+            $table->unsignedBigInteger('student_id');
             $table->foreign('student_id')->references('id')->on('students');
 
-            $table->unsignedInteger('class_information_id');
+            $table->unsignedBigInteger('class_information_id');
             $table->foreign('class_information_id')->references('id')->on('class_information');
 
-            $table->unique(['student_id', 'class_information_id']);
+            $table->unique(['student_id','class_information_id']);
         });
     }
 
