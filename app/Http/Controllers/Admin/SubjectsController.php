@@ -31,22 +31,32 @@ class SubjectsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return Application|Factory|Response|View
      */
     public function create()
     {
-        //
+        return view('admin.subjects.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return Response
+     * @param UpdateSubjectsRequest $request
+     * @return RedirectResponse|Response
      */
-    public function store(Request $request)
+    public function store(UpdateSubjectsRequest $request)
     {
-        //
+        $subject = Subject::create([
+            'name' => $request->name,
+        ]);
+
+        if ($subject) {
+            toastr('success', 'Cadastro realizado com sucesso');
+            return redirect()->to(route('admin.subjects.index'));
+        }
+
+        toastr('error', 'Não foi possível adicionar o cadastro');
+        return back();
     }
 
     /**
