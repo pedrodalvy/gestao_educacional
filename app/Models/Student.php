@@ -10,4 +10,8 @@ class Student extends Model
     {
         return $this->morphOne(\App\User::class, 'userable');
     }
+
+    public function classInformations(){
+        return $this->belongsToMany(ClassInformation::class);
+    }
 }

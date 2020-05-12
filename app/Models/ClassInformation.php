@@ -19,4 +19,9 @@ class ClassInformation extends Model
         'date_start',
         'date_end',
     ];
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class);
+    }
 }
