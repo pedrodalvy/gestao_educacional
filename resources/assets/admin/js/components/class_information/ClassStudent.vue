@@ -1,23 +1,30 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Example Component</div>
-
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                </div>
-            </div>
+    <div>
+        <div class="form-group">
+            <label for="students" class="control-label">Selecionar estudante</label>
+            <select name="students" id="students" class="form-control"></select>
         </div>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Nome</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
     </div>
 </template>
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
+        name: "ClassStudent"
     }
 </script>
+
+<style scoped>
+
+</style>
