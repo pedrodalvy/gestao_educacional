@@ -14,4 +14,12 @@ class Student extends Model
     public function classInformations(){
         return $this->belongsToMany(ClassInformation::class);
     }
+
+    public function toArray()
+    {
+        $data = parent::toArray();
+        $this->user->makeHidden('userable_type', 'userable_id');
+        $data['user'] = $this->user;
+        return $data;
+    }
 }
