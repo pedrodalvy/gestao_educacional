@@ -7,7 +7,7 @@
         <div class="card">
             <h5 class="card-header">Administração de alunos na turma</h5>
             <div class="card-body table-responsive">
-
+            <class-student></class-student>
 
             </div>
         </div>
