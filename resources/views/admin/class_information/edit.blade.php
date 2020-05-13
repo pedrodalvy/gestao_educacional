@@ -4,7 +4,20 @@
     <div class="container">
         @include('partials._alert')
         <div class="card">
-            <h5 class="card-header">Editar cadastro da turma <strong>{{ $classInformation->cycle . ' ' . $classInformation->subdivision}}</strong></h5>
+            <div class="card-header">
+                <div class="row">
+
+                    <h5 class="pt-2 pl-2">Editar cadastro da turma <strong>{{ $classInformation->cycle . ' ' . $classInformation->subdivision}}</strong></h5>
+
+                    <a type="button" class="btn btn-info ml-auto btn-icon-split text-white"
+                       href="{{ route('admin.classinformation.students.index', $classInformation->id) }}">
+
+                        <span class="icon"><i data-feather="users" width="1rem" height="1rem"></i></span>
+                        <span class="text">Alunos</span>
+                    </a>
+                </div>
+            </div>
+
             <div class="card-body table-responsive">
 
                 <form action="{{ route('admin.classinformation.update', $classInformation->id) }}" method="POST">
