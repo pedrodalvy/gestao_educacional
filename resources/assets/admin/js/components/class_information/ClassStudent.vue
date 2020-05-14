@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="form-group">
-            <label class="control-label" for="students">Selecionar estudante</label>
+        <div class="form-group form-group-lg">
+            <label class="control-label" for="students">Selecione um estudante</label>
             <select class="form-control" id="students" name="students"></select>
         </div>
 
@@ -26,6 +26,7 @@
     import ADMIN_CONFIG from '../../services/adminConfig';
     import store from '../../store/store';
     import 'select2';
+    import 'select2/dist/js/i18n/pt-BR';
 
     export default {
         props: [
@@ -59,7 +60,11 @@
                         }
                     }
                 },
+                // configs do select2
+                theme: "bootstrap",
                 minimumInputLength: 1,
+                language: "pt-BR",
+                width: 'resolve',
             });
         }
     }
