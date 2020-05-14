@@ -10,6 +10,7 @@
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "devDependencies": {
+    "@ttskch/select2-bootstrap4-theme": "^1.4.0",
     "axios": "^0.19",
     "bootstrap": "^4.4.1",
     "cross-env": "^7.0",
@@ -26,8 +27,5 @@
     "vue-resource": "^1.5.1",
     "vue-template-compiler": "^2.6.10",
     "vuex": "^3.4.0"
-  },
-  "dependencies": {
-    "select2-bootstrap-theme": "0.1.0-beta.10"
   }
 }

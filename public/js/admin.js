@@ -173,7 +173,7 @@ __webpack_require__.r(__webpack_exports__);
     // Preenche a tabela com a lista de estudantes
     _store_store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('classStudent/query', this.classInformation); // Cria o select2 para pesquisa de estudantes
 
-    $("select[name=students]").select2({
+    $(".select2-single").select2({
       ajax: {
         url: "".concat(_services_adminConfig__WEBPACK_IMPORTED_MODULE_0__["default"].API_URL, "/students"),
         dataType: 'json',
@@ -195,7 +195,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       },
       // configs do select2
-      theme: "bootstrap",
+      theme: "bootstrap4",
       minimumInputLength: 1,
       language: "pt-BR",
       width: 'resolve'
@@ -27368,7 +27368,7 @@ var staticRenderFns = [
       ),
       _vm._v(" "),
       _c("select", {
-        staticClass: "form-control",
+        staticClass: "form-control select2-single",
         attrs: { id: "students", name: "students" }
       })
     ])

@@ -2,7 +2,7 @@
     <div>
         <div class="form-group form-group-lg">
             <label class="control-label" for="students">Selecione um estudante</label>
-            <select class="form-control" id="students" name="students"></select>
+            <select class="form-control select2-single" id="students" name="students"></select>
         </div>
 
         <table class="table table-bordered">
@@ -42,7 +42,7 @@
             store.dispatch('classStudent/query', this.classInformation);
 
             // Cria o select2 para pesquisa de estudantes
-            $("select[name=students]").select2({
+            $(".select2-single").select2({
                 ajax: {
                     url: `${ADMIN_CONFIG.API_URL}/students`,
                     dataType: 'json',
@@ -61,7 +61,7 @@
                     }
                 },
                 // configs do select2
-                theme: "bootstrap",
+                theme: "bootstrap4",
                 minimumInputLength: 1,
                 language: "pt-BR",
                 width: 'resolve',
