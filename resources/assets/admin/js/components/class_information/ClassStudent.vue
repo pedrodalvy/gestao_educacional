@@ -73,7 +73,14 @@
                 store.dispatch('classStudent/store', {
                     studentId: event.params.data.id,
                     classInformationId: self.classInformation
-                }).then(() => alert('Aluno Adicionado com sucesso'));
+                }).then(() => {
+                    Toastr.options = {
+                        "progressBar": true,
+                        "positionClass": "toast-top-right",
+                        "showDuration": "500",
+                    }
+                    Toastr["success"]("Aluno adicionado com sucesso")
+                });
             });
         }
     }
