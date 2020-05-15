@@ -199,6 +199,16 @@ __webpack_require__.r(__webpack_exports__);
       minimumInputLength: 1,
       language: "pt-BR",
       width: 'resolve'
+    }); // Insere o aluno na turma
+
+    var self = this;
+    $(".select2-single").on('select2:select', function (event) {
+      _store_store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('classStudent/store', {
+        studentId: event.params.data.id,
+        classInformationId: self.classInformation
+      }).then(function () {
+        return alert('Aluno Adicionado com sucesso');
+      });
     });
   }
 });
@@ -42404,6 +42414,29 @@ var location = window.location;
 
 /***/ }),
 
+/***/ "./resources/assets/admin/js/services/resources.js":
+/*!*********************************************************!*\
+  !*** ./resources/assets/admin/js/services/resources.js ***!
+  \*********************************************************/
+/*! exports provided: ClassStudent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClassStudent", function() { return ClassStudent; });
+/* harmony import */ var vue_resource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-resource */ "./node_modules/vue-resource/dist/vue-resource.esm.js");
+/* harmony import */ var _adminConfig__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./adminConfig */ "./resources/assets/admin/js/services/adminConfig.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.http.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
+var ClassStudent = vue__WEBPACK_IMPORTED_MODULE_2___default.a.resource("".concat(_adminConfig__WEBPACK_IMPORTED_MODULE_1__["default"].ADMIN_URL, "/classinformation/{classinformation}/students/{student}"));
+
+
+/***/ }),
+
 /***/ "./resources/assets/admin/js/store/class_student.js":
 /*!**********************************************************!*\
   !*** ./resources/assets/admin/js/store/class_student.js ***!
@@ -42413,7 +42446,7 @@ var location = window.location;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_resource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-resource */ "./node_modules/vue-resource/dist/vue-resource.esm.js");
+/* harmony import */ var _services_resources__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/resources */ "./resources/assets/admin/js/services/resources.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _services_adminConfig__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/adminConfig */ "./resources/assets/admin/js/services/adminConfig.js");
@@ -42424,6 +42457,9 @@ var state = {
   students: []
 };
 var mutations = {
+  add: function add(state, student) {
+    state.students.push(student);
+  },
   set: function set(state, students) {
     state.students = students;
   }
@@ -42432,6 +42468,17 @@ var actions = {
   query: function query(context, classInformationId) {
     return vue__WEBPACK_IMPORTED_MODULE_1___default.a.http.get("".concat(_services_adminConfig__WEBPACK_IMPORTED_MODULE_2__["default"].ADMIN_URL, "/classinformation/").concat(classInformationId, "/students")).then(function (response) {
       context.commit('set', response.data);
+    });
+  },
+  store: function store(context, _ref) {
+    var studentId = _ref.studentId,
+        classInformationId = _ref.classInformationId;
+    return _services_resources__WEBPACK_IMPORTED_MODULE_0__["ClassStudent"].save({
+      classinformation: classInformationId
+    }, {
+      student_id: studentId
+    }).then(function (response) {
+      context.commit('add', response.data);
     });
   }
 };
