@@ -66,6 +66,15 @@
                 language: "pt-BR",
                 width: 'resolve',
             });
+
+            // Insere o aluno na turma
+            let self = this;
+            $(".select2-single").on('select2:select', event => {
+                store.dispatch('classStudent/store', {
+                    studentId: event.params.data.id,
+                    classInformationId: self.classInformation
+                }).then(() => alert('Aluno Adicionado com sucesso'));
+            });
         }
     }
 </script>
