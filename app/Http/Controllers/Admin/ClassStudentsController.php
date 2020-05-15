@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ClassStudentRequest;
 use App\Models\ClassInformation;
+use App\Models\Student;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
@@ -33,12 +36,16 @@ class ClassStudentsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return Response
+     * @param ClassStudentRequest $request
+     * @param ClassInformation $classinformation
+     * @return Student|Student[]|Collection|Model
      */
-    public function store(Request $request)
+    public function store(ClassStudentRequest $request, ClassInformation $classinformation)
     {
-        //
+        $student = Student::findOrFail($request->student_id);
+        $classinformation->students()->save($student);
+
+        return $student;
     }
 
     /**
