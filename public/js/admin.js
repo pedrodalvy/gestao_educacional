@@ -225,6 +225,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -279,6 +280,8 @@ __webpack_require__.r(__webpack_exports__);
         classInformationId: self.classInformation
       }).then(function () {
         Toastr["success"]("Aluno adicionado com sucesso");
+      })["catch"](function (error) {
+        Toastr["error"](error.data.errors.student_id[0]);
       });
     });
   },
@@ -4860,7 +4863,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "\n.delete_column[data-v-0914f478] {\r\n    width: 11%;\n}\r\n", ""]);
+exports.push([module.i, "\n.delete_column[data-v-0914f478] {\n    width: 11%;\n}\n", ""]);
 
 // exports
 
@@ -43046,6 +43049,8 @@ var render = function() {
         "tbody",
         _vm._l(_vm.students, function(student) {
           return _c("tr", [
+            _c("td", [_vm._v(_vm._s(student.user.name))]),
+            _vm._v(" "),
             _c("td", [
               _c(
                 "button",
@@ -43071,12 +43076,12 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c("span", { staticClass: "text" }, [_vm._v("Remover")])
+                  _c("span", { staticClass: "text d-none d-md-block" }, [
+                    _vm._v("Remover")
+                  ])
                 ]
               )
-            ]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(student.user.name))])
+            ])
           ])
         }),
         0
@@ -43108,9 +43113,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { staticClass: "delete_column" }),
+        _c("th", [_vm._v("Nome")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Nome")])
+        _c("th", { staticClass: "delete_column" })
       ])
     ])
   }

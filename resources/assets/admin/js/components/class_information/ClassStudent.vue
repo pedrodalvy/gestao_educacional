@@ -8,19 +8,20 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th class="delete_column"></th>
                 <th>Nome</th>
+                <th class="delete_column"></th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="student in students">
+                <td>{{ student.user.name }}</td>
                 <td>
-                    <button type="button" class="btn btn-danger btn-sm ml-auto btn-icon-split" @click="destroy(student)">
-                        <span class="icon"><trash-2-icon size="1x" class="custom-class"></trash-2-icon></span>
-                        <span class="text">Remover</span>
+                    <button @click="destroy(student)" class="btn btn-danger btn-sm ml-auto btn-icon-split"
+                            type="button">
+                        <span class="icon"><trash-2-icon class="custom-class" size="1x"></trash-2-icon></span>
+                        <span class="text d-none d-md-block">Remover</span>
                     </button>
                 </td>
-                <td>{{ student.user.name }}</td>
             </tr>
             </tbody>
         </table>
@@ -32,7 +33,7 @@
     import store from '../../store/store';
     import 'select2';
     import 'select2/dist/js/i18n/pt-BR';
-    import { Trash2Icon } from 'vue-feather-icons';
+    import {Trash2Icon} from 'vue-feather-icons';
 
     export default {
         props: [
@@ -83,8 +84,10 @@
                     studentId: event.params.data.id,
                     classInformationId: self.classInformation
                 }).then(() => {
-                    Toastr["success"]("Aluno adicionado com sucesso")
-                });
+                    Toastr["success"]("Aluno adicionado com sucesso");
+                }).catch(error => {
+                    Toastr["error"](error.data.errors.student_id[0]);
+                })
             });
         },
         methods: {
@@ -103,7 +106,7 @@
 </script>
 
 <style scoped>
-.delete_column {
-    width: 11%;
-}
+    .delete_column {
+        width: 11%;
+    }
 </style>
