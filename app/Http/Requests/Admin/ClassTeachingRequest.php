@@ -26,11 +26,11 @@ class ClassTeachingRequest extends FormRequest
     {
         $classinformation = $this->route('classinformation');
         return [
-            'teacher_id' => 'required|existis:teachers,id',
+            'teacher_id' => 'required|exists:teachers,id',
             'subject_id' => [
                 'required',
                 'exists:subjects,id',
-                Rule::unique('class_teaching', 'subject_id')
+                Rule::unique('class_teachings', 'subject_id')
                     ->where('class_information_id', $classinformation->id)
                     ->where('teacher_id', $this->get('teacher_id'))
             ]
