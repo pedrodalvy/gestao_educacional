@@ -8,13 +8,18 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th></th>
+                <th class="delete_column"></th>
                 <th>Nome</th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="student in students">
-                <td>Excluir</td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm ml-auto btn-icon-split" @click="destroy(student)">
+                        <span class="icon"><trash-2-icon size="1x" class="custom-class"></trash-2-icon></span>
+                        <span class="text">Remover</span>
+                    </button>
+                </td>
                 <td>{{ student.user.name }}</td>
             </tr>
             </tbody>
@@ -27,11 +32,15 @@
     import store from '../../store/store';
     import 'select2';
     import 'select2/dist/js/i18n/pt-BR';
+    import { Trash2Icon } from 'vue-feather-icons';
 
     export default {
         props: [
             'classInformation'
         ],
+        components: {
+            Trash2Icon
+        },
         computed: {
             students() {
                 return store.state.classStudent.students
@@ -74,18 +83,27 @@
                     studentId: event.params.data.id,
                     classInformationId: self.classInformation
                 }).then(() => {
-                    Toastr.options = {
-                        "progressBar": true,
-                        "positionClass": "toast-top-right",
-                        "showDuration": "500",
-                    }
                     Toastr["success"]("Aluno adicionado com sucesso")
                 });
             });
+        },
+        methods: {
+            destroy(student) {
+                if (confirm('Deseja excluir este aluno?')) {
+                    store.dispatch('classStudent/destroy', {
+                        studentId: student.id,
+                        classInformationId: this.classInformation
+                    }).then(() => {
+                        Toastr["success"]("Aluno removido com sucesso")
+                    });
+                }
+            }
         }
     }
 </script>
 
 <style scoped>
-
+.delete_column {
+    width: 11%;
+}
 </style>
