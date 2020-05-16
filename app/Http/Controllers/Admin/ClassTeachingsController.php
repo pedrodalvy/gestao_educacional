@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ClassTeachingRequest;
 use App\Models\ClassInformation;
+use App\Models\ClassTeaching;
 use App\Models\Student;
 use App\Models\Teaching;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Database\Eloquent\Collection;
@@ -55,6 +57,7 @@ class ClassTeachingsController extends Controller
      * @param ClassInformation $classinformation
      * @param ClassTeaching $teaching
      * @return JsonResponse
+     * @throws Exception
      */
     public function destroy(ClassInformation $classinformation, ClassTeaching $teaching)
     {
