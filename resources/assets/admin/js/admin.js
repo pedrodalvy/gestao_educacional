@@ -4,6 +4,12 @@ require('feather-icons/dist/feather.min')
 const feather = require('feather-icons')
 feather.replace();
 
+Toastr.options = {
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "showDuration": "500",
+}
+
 window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
