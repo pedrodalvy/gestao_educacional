@@ -12,8 +12,15 @@
                     <a type="button" class="btn btn-info ml-auto btn-icon-split text-white"
                        href="{{ route('admin.classinformation.students.index', $classInformation->id) }}">
 
-                        <span class="icon"><i data-feather="users" width="1rem" height="1rem"></i></span>
+                        <span class="icon"><i data-feather="plus-circle" width="1rem" height="1rem"></i></span>
                         <span class="text">Alunos</span>
+                    </a>
+
+                    <a type="button" class="btn btn-info ml-2 btn-icon-split text-white"
+                       href="{{ route('admin.classinformation.teachings.index', $classInformation->id) }}">
+
+                        <span class="icon"><i data-feather="plus-circle" width="1rem" height="1rem"></i></span>
+                        <span class="text">Ensinos</span>
                     </a>
                 </div>
             </div>
