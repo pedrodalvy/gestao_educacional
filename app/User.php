@@ -7,13 +7,14 @@ use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\UserProfile;
 use App\Notifications\UserCreated;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Password;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
@@ -71,7 +72,7 @@ class User extends Authenticatable
         $user->save();
 
         if (isset($request->send_mail)) {
-            $token = \Password::broker()->createToken($user);
+            $token = Password::broker()->createToken($user);
             $user->notify(new UserCreated($token));
         }
         return compact('user', 'password');
@@ -128,5 +129,31 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne(UserProfile::class)->withDefault();
+    }
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [
+            'user' => [
+                'id' => $this->id,
+                'name' => $this->name,
+                'email' => $this->email,
+            ],
+        ];
     }
 }

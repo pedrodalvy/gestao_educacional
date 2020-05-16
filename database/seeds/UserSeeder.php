@@ -1,8 +1,8 @@
 <?php
 
 use App\Models\UserProfile;
+use App\User;
 use Illuminate\Database\Seeder;
-use \App\User;
 
 class UserSeeder extends Seeder
 {
@@ -24,6 +24,21 @@ class UserSeeder extends Seeder
             User::assignEnrolment($user, User::ROLE_ADMIN);
 
             $user->save();
+        });
+
+        factory(User::class)->create([
+            'email' => 'teacher@teacher.com',
+            'enrolment' => 400001,
+        ])->each(function (User $user) {
+            if (!$user->userable) {
+                $profile = factory(UserProfile::class)->make();
+                $user->profile()->create($profile->toArray());
+
+                User::assignRole($user, User::ROLE_TEACHER);
+                User::assignEnrolment($user, User::ROLE_TEACHER);
+
+                $user->save();
+            }
         });
 
         factory(User::class, 100)->create()->each(function (User $user) {

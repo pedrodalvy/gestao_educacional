@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
+
+Route::group([
+    'as' => 'api',
+    'namespace' => 'Api\\'
+], function () {
+    Route::post('/access_token', 'AuthController@accessToken');
+});
