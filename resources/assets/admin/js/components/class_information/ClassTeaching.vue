@@ -126,8 +126,30 @@
                         classInformationId: this.classInformation
                     }).then(() => {
                         Toastr["success"]("Ensino removido com sucesso")
+                    }).catch(error => {
+                        Toastr["error"](error.body.message);
                     });
                 }
+            },
+            store() {
+                store.dispatch('classTeaching/store', {
+                    teacherId: $("select[name=teachers]").val(),
+                    subjectId: $("select[name=subjects]").val(),
+                    classInformationId: this.classInformation
+                }).then(() => {
+                    Toastr["success"]("Ensino cadastrado com sucesso")
+                }).catch(error => {
+                    if (error.data.errors.subject_id) {
+                        for (let errors of error.data.errors.subject_id) {
+                            Toastr["error"](errors);
+                        }
+                    }
+                    if (error.data.errors.teacher_id) {
+                        for (let errors of error.data.errors.teacher_id) {
+                            Toastr["error"](errors);
+                        }
+                    }
+                });
             }
         }
     }

@@ -317,6 +317,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var select2_dist_js_i18n_pt_BR__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! select2/dist/js/i18n/pt-BR */ "./node_modules/select2/dist/js/i18n/pt-BR.js");
 /* harmony import */ var select2_dist_js_i18n_pt_BR__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(select2_dist_js_i18n_pt_BR__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vue_feather_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-feather-icons */ "./node_modules/vue-feather-icons/dist/vue-feather-icons.es.js");
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 //
 //
 //
@@ -384,6 +390,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     // Preenche a tabela com a lista de ensinos
     _store_store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('classTeaching/query', this.classInformation);
+
     var selects = [{
       url: "".concat(_services_adminConfig__WEBPACK_IMPORTED_MODULE_0__["default"].API_URL, "/teachers"),
       selector: "select[name=teachers]",
@@ -442,8 +449,51 @@ __webpack_require__.r(__webpack_exports__);
           classInformationId: this.classInformation
         }).then(function () {
           Toastr["success"]("Ensino removido com sucesso");
+        })["catch"](function (error) {
+          Toastr["error"](error.body.message);
         });
       }
+    },
+    store: function store() {
+      _store_store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('classTeaching/store', {
+        teacherId: $("select[name=teachers]").val(),
+        subjectId: $("select[name=subjects]").val(),
+        classInformationId: this.classInformation
+      }).then(function () {
+        Toastr["success"]("Ensino cadastrado com sucesso");
+      })["catch"](function (error) {
+        if (error.data.errors.subject_id) {
+          var _iterator = _createForOfIteratorHelper(error.data.errors.subject_id),
+              _step;
+
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var errors = _step.value;
+              Toastr["error"](errors);
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+        }
+
+        if (error.data.errors.teacher_id) {
+          var _iterator2 = _createForOfIteratorHelper(error.data.errors.teacher_id),
+              _step2;
+
+          try {
+            for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+              var _errors = _step2.value;
+              Toastr["error"](_errors);
+            }
+          } catch (err) {
+            _iterator2.e(err);
+          } finally {
+            _iterator2.f();
+          }
+        }
+      });
     }
   }
 });
