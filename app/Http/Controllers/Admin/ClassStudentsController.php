@@ -10,8 +10,8 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class ClassStudentsController extends Controller
@@ -25,7 +25,7 @@ class ClassStudentsController extends Controller
      */
     public function index(Request $request, ClassInformation $classinformation)
     {
-        if (! $request->ajax()) {
+        if (!$request->ajax()) {
             return view('admin.class_information.class_students')
                 ->with('classinformation', $classinformation);
         }
@@ -51,11 +51,13 @@ class ClassStudentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return Response
+     * @param ClassInformation $classinformation
+     * @param Student $student
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(ClassInformation $classinformation, Student $student)
     {
-        //
+        $classinformation->students()->detach([$student->id]);
+        return response()->json([], 204);
     }
 }
