@@ -24,4 +24,9 @@ class ClassInformation extends Model
     {
         return $this->belongsToMany(Student::class);
     }
+
+    public function teachings()
+    {
+        return $this->hasMany(ClassTeaching::class);
+    }
 }
