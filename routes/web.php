@@ -1,6 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+Route::get('/', function () {
+    return redirect()->to('app');
+});
+
+Route::get('app', function () {
+    return view('layouts.spa');
+})->name('app');
 
 Route::prefix('admin')->group(function () {
     Auth::routes();
