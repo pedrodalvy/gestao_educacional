@@ -18821,9 +18821,9 @@ var render = function() {
                     staticClass: "form-control",
                     attrs: {
                       id: "username",
+                      name: "username",
                       required: "",
-                      type: "text",
-                      name: "username"
+                      type: "text"
                     },
                     domProps: { value: _vm.user.username },
                     on: {
@@ -18854,9 +18854,9 @@ var render = function() {
                     staticClass: "form-control",
                     attrs: {
                       id: "password",
+                      name: "password",
                       required: "",
-                      type: "password",
-                      name: "password"
+                      type: "password"
                     },
                     domProps: { value: _vm.user.password },
                     on: {
@@ -37158,6 +37158,74 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/spa/js/services/jwt-token.js":
+/*!*******************************************************!*\
+  !*** ./resources/assets/spa/js/services/jwt-token.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _resources__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./resources */ "./resources/assets/spa/js/services/resources.js");
+/* harmony import */ var _localstorage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./localstorage */ "./resources/assets/spa/js/services/localstorage.js");
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  get token() {
+    return _localstorage__WEBPACK_IMPORTED_MODULE_1__["default"].get('token');
+  },
+
+  set token(value) {
+    _localstorage__WEBPACK_IMPORTED_MODULE_1__["default"].set('token', value);
+  },
+
+  accessToken: function accessToken(username, password) {
+    var _this = this;
+
+    return _resources__WEBPACK_IMPORTED_MODULE_0__["Jwt"].accessToken(username, password).then(function (response) {
+      _this.token = response.data.token;
+    });
+  },
+  revokeToken: function revokeToken() {
+    return _resources__WEBPACK_IMPORTED_MODULE_0__["Jwt"].logout();
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/assets/spa/js/services/localstorage.js":
+/*!**********************************************************!*\
+  !*** ./resources/assets/spa/js/services/localstorage.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  set: function set(key, value) {
+    window.localStorage[key] = value;
+    return window.localStorage[key];
+  },
+  get: function get(key) {
+    var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    return window.localStorage[key] || defaultValue;
+  },
+  setObject: function setObject(key, value) {
+    window.localStorage[key] = JSON.stringify(value);
+    return this.getObject(key);
+  },
+  getObject: function getObject(key) {
+    return JSON.parse(window.localStorage[key] || null);
+  },
+  remove: function remove(key) {
+    window.localStorage.removeItem(key);
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/assets/spa/js/services/resources.js":
 /*!*******************************************************!*\
   !*** ./resources/assets/spa/js/services/resources.js ***!
@@ -37190,7 +37258,7 @@ var Jwt = /*#__PURE__*/function () {
   _createClass(Jwt, null, [{
     key: "accessToken",
     value: function accessToken(username, password) {
-      vue__WEBPACK_IMPORTED_MODULE_2___default.a.http.post('access_token', {
+      return vue__WEBPACK_IMPORTED_MODULE_2___default.a.http.post('access_token', {
         username: username,
         password: password
       });
@@ -37198,7 +37266,7 @@ var Jwt = /*#__PURE__*/function () {
   }, {
     key: "logout",
     value: function logout() {
-      vue__WEBPACK_IMPORTED_MODULE_2___default.a.http.post('logout');
+      return vue__WEBPACK_IMPORTED_MODULE_2___default.a.http.post('logout');
     }
   }]);
 
@@ -37254,7 +37322,7 @@ __webpack_require__(/*! ./router */ "./resources/assets/spa/js/router.js");
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _services_resources__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/resources */ "./resources/assets/spa/js/services/resources.js");
+/* harmony import */ var _services_jwt_token__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/jwt-token */ "./resources/assets/spa/js/services/jwt-token.js");
 
 var state = {
   user: null,
@@ -37268,10 +37336,10 @@ var actions = {
   login: function login(context, _ref) {
     var username = _ref.username,
         password = _ref.password;
-    return _services_resources__WEBPACK_IMPORTED_MODULE_0__["Jwt"].accessToken(username, password);
+    return _services_jwt_token__WEBPACK_IMPORTED_MODULE_0__["default"].accessToken(username, password);
   },
   logout: function logout() {
-    return _services_resources__WEBPACK_IMPORTED_MODULE_0__["Jwt"].logout();
+    return _services_jwt_token__WEBPACK_IMPORTED_MODULE_0__["default"].revokeToken();
   }
 };
 var module = {
