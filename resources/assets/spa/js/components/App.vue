@@ -1,7 +1,9 @@
 <template>
     <div>
-        <teacher-menu></teacher-menu>
-        <router-view></router-view>
+        <teacher-menu class="mb-2"></teacher-menu>
+        <div class="container">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 
