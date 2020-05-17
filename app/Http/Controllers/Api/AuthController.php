@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Lang;
+use Validator;
 
 class AuthController extends Controller
 {
@@ -32,12 +35,12 @@ class AuthController extends Controller
 
         $credentials = $this->credentials($request);
 
-        if ($token = \Auth::guard('api')->attempt($credentials)) {
+        if ($token = Auth::guard('api')->attempt($credentials)) {
             return ['token' => $token];
         }
 
         return response()->json([
-            'error' => \Lang::get('auth.failed')
+            'error' => Lang::get('auth.failed')
         ], 400);
     }
 
@@ -71,12 +74,23 @@ class AuthController extends Controller
     {
         $email = \Request::get($this->username());
 
-        $validator = \Validator::make([
+        $validator = Validator::make([
             'email' => $email
         ], [
             'email' => 'email'
         ]);
 
         return $validator->fails() ? 'enrolment' : 'email';
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function logout(Request $request)
+    {
+        Auth::guard('api')->logout();
+
+        return response()->json([], 204);
     }
 }
