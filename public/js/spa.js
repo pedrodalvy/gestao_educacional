@@ -208,8 +208,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../store/store */ "./resources/assets/spa/js/store/store.js");
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -219,6 +221,17 @@ __webpack_require__.r(__webpack_exports__);
       }],
       brandRouteName: 'class_informations.list'
     };
+  },
+  computed: {
+    isAuth: function isAuth() {
+      return _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].state.auth.check;
+    },
+    user: function user() {
+      return _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].state.auth.user;
+    },
+    username: function username() {
+      return this.isAuth ? _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].state.auth.user.name : null;
+    }
   }
 });
 
@@ -18993,7 +19006,26 @@ var render = function() {
                 0
               ),
               _vm._v(" "),
-              _vm._m(1)
+              _c("ul", { staticClass: "navbar-nav " }, [
+                _c("li", { staticClass: "nav-item dropdown" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nav-link dropdown-toggle",
+                      attrs: {
+                        "aria-expanded": "false",
+                        "aria-haspopup": "true",
+                        "data-toggle": "dropdown",
+                        href: "#",
+                        id: "dropdown03"
+                      }
+                    },
+                    [_vm._v(_vm._s(_vm.username))]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(1)
+                ])
+              ])
             ]
           )
         ],
@@ -19027,37 +19059,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "navbar-nav " }, [
-      _c("li", { staticClass: "nav-item dropdown" }, [
-        _c(
-          "a",
-          {
-            staticClass: "nav-link dropdown-toggle",
-            attrs: {
-              "aria-expanded": "false",
-              "aria-haspopup": "true",
-              "data-toggle": "dropdown",
-              href: "#",
-              id: "dropdown03"
-            }
-          },
-          [_vm._v("User Name")]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "dropdown-menu dropdown-menu-left",
-            attrs: { "aria-labelledby": "dropdown03" }
-          },
-          [
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _vm._v("Logout")
-            ])
-          ]
-        )
-      ])
-    ])
+    return _c(
+      "div",
+      {
+        staticClass: "dropdown-menu dropdown-menu-left",
+        attrs: { "aria-labelledby": "dropdown03" }
+      },
+      [
+        _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+          _vm._v("Logout")
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -37171,6 +37184,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _localstorage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./localstorage */ "./resources/assets/spa/js/services/localstorage.js");
 
 
+
+var payloadToObject = function payloadToObject(token) {
+  var payload = token.split('.')[1];
+  return JSON.parse(atob(payload));
+};
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   get token() {
     return _localstorage__WEBPACK_IMPORTED_MODULE_1__["default"].get('token');
@@ -37178,6 +37197,10 @@ __webpack_require__.r(__webpack_exports__);
 
   set token(value) {
     _localstorage__WEBPACK_IMPORTED_MODULE_1__["default"].set('token', value);
+  },
+
+  get payload() {
+    return this.token != null ? payloadToObject(this.token) : null;
   },
 
   accessToken: function accessToken(username, password) {
@@ -37325,18 +37348,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_jwt_token__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/jwt-token */ "./resources/assets/spa/js/services/jwt-token.js");
 
 var state = {
-  user: null,
-  check: null
+  user: _services_jwt_token__WEBPACK_IMPORTED_MODULE_0__["default"].payload != null ? _services_jwt_token__WEBPACK_IMPORTED_MODULE_0__["default"].payload.user : null,
+  check: _services_jwt_token__WEBPACK_IMPORTED_MODULE_0__["default"].payload != null
 };
 var mutations = {
-  authenticated: function authenticated(state) {},
+  authenticated: function authenticated(state) {
+    state.check = true;
+    state.user = _services_jwt_token__WEBPACK_IMPORTED_MODULE_0__["default"].payload.user;
+  },
   unauthenticated: function unauthenticated(state) {}
 };
 var actions = {
   login: function login(context, _ref) {
     var username = _ref.username,
         password = _ref.password;
-    return _services_jwt_token__WEBPACK_IMPORTED_MODULE_0__["default"].accessToken(username, password);
+    return _services_jwt_token__WEBPACK_IMPORTED_MODULE_0__["default"].accessToken(username, password).then(function () {
+      context.commit('authenticated');
+    });
   },
   logout: function logout() {
     return _services_jwt_token__WEBPACK_IMPORTED_MODULE_0__["default"].revokeToken();
