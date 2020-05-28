@@ -18,3 +18,5 @@ mix.js('resources/assets/admin/js/admin.js', 'public/js')
 mix.js('resources/assets/spa/js/spa.js', 'public/js')
     .sass('resources/assets/spa/sass/spa.scss', 'public/css')
     .sourceMaps(false, 'source-map');
+
+mix.browserSync('localhost:8000');

@@ -13,6 +13,8 @@
     "@ttskch/select2-bootstrap4-theme": "^1.4.0",
     "axios": "^0.19",
     "bootstrap": "^4.4.1",
+    "browser-sync": "^2.26.7",
+    "browser-sync-webpack-plugin": "^2.2.2",
     "cross-env": "^7.0",
     "feather-icons": "^4.28.0",
     "jquery": "^3.5.1",
