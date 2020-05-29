@@ -30,5 +30,8 @@ export default {
         return Jwt.logout()
             .then(afterRevokeToken)
             .catch(afterRevokeToken);
+    },
+    getAuthorizationHeader() {
+        return `Bearer ${localStorage.get('token')}`;
     }
 };
