@@ -11,7 +11,7 @@ const mutations = {
         state.user = JwtToken.payload.user;
     },
     unauthenticated(state) {
-        state.check = true;
+        state.check = false;
         state.user = null;
     }
 }
