@@ -11,7 +11,9 @@ export default {
         return localStorage.get('token');
     },
     set token(value) {
-        localStorage.set('token', value);
+        value
+            ? localStorage.set('token', value)
+            : localStorage.remove('token');
     },
     get payload() {
         return this.token != null ? payloadToObject(this.token) : null;
@@ -23,6 +25,10 @@ export default {
             });
     },
     revokeToken() {
-        return Jwt.logout();
+        let afterRevokeToken = () => this.token = null;
+
+        return Jwt.logout()
+            .then(afterRevokeToken)
+            .catch(afterRevokeToken);
     }
 };
